@@ -17,8 +17,7 @@
 PRODUCT_PACKAGES += \
     TvProvider \
     rkCamera2 \
-    PartnerSupportSampleTvInput \
-    RkHdmiInAudio
+    PartnerSupportSampleTvInput
 
 # JNI
 PRODUCT_PACKAGES += \
