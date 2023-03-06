@@ -179,8 +179,17 @@ ifeq ($(strip $(BOARD_SUPPORT_MULTIAUDIO)), true)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio_policy_configuration_multiaudio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
 else
+ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT), car)
+PRODUCT_PACKAGES += \
+    audio.hdmi.$(TARGET_BOARD_HARDWARE) \
+    audio.hdmi_1.$(TARGET_BOARD_HARDWARE)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/car_audio_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/car_audio_configuration.xml \
+    $(LOCAL_PATH)/car_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
+else
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
+endif
 endif
 
 PRODUCT_COPY_FILES += \

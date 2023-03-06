@@ -53,7 +53,7 @@
 /dev/compassirq           0660   system     system
 
 # for GPS
-#/dev/ttyS3                0600   gps        gps
+/dev/ttyS7                0600   gps        gps
 /dev/gps                  0660   gps        gps
 
 # for BT
