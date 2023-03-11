@@ -72,3 +72,7 @@ persist.vendor.sys.hid                  u:object_r:vendor_drmservice_prop:s0
 
 # power aidl configs
 ro.vendor.power.                        u:object_r:vendor_power_prop:s0
+
+# hdmiin
+persist.vendor.tvinput.                 u:object_r:vendor_tv_input_prop:s0
+vendor.tvinput.                         u:object_r:vendor_tv_input_prop:s0
