@@ -19,6 +19,7 @@ on boot
     mkdir /config/usb_gadget/g1/functions/ffs.ptp
     mkdir /config/usb_gadget/g1/functions/rndis.gs4
     write /config/usb_gadget/g1/functions/rndis.gs4/wceis 1
+    mkdir /config/usb_gadget/g1/functions/ncm.gs7
     mkdir /config/usb_gadget/g1/functions/midi.gs5
     mkdir /config/usb_gadget/g1/functions/uvc.gs6
     mkdir /config/usb_gadget/g1/functions/uvc.gs6/control/header/h
@@ -152,3 +153,10 @@ on property:sys.usb.config=accessory && property:sys.usb.configfs=1
 on property:sys.usb.config=accessory,adb && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/idVendor 0x18d1
     write /config/usb_gadget/g1/idProduct 0x2d01
+
+on property:sys.usb.config=ncm && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/idProduct 0x000A
+
+on property:sys.usb.config=ncm,adb && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/os_desc/use 1
+    write /config/usb_gadget/g1/idProduct 0x001A
