@@ -1061,8 +1061,16 @@ ifeq ($(strip $(BOARD_TV_LOW_MEMOPT)), true)
 endif
 
 #bt config for ap bt
-PRODUCT_COPY_FILES += \
-    $(TARGET_DEVICE_DIR)/bt_vendor.conf:/vendor/etc/bluetooth/bt_vendor.conf
+ifeq ($(strip $(PRODUCT_KERNEL_DTS)), rk3588-vehicle-evb-v20)
+    PRODUCT_COPY_FILES += \
+        $(TARGET_DEVICE_DIR)/bt_vendor_vehicle_v20.conf:/vendor/etc/bluetooth/bt_vendor.conf
+else ifeq ($(strip $(PRODUCT_KERNEL_DTS)), rk3588-vehicle-evb-v10)
+    PRODUCT_COPY_FILES += \
+        $(TARGET_DEVICE_DIR)/bt_vendor_vehicle_v10.conf:/vendor/etc/bluetooth/bt_vendor.conf
+else
+    PRODUCT_COPY_FILES += \
+        $(TARGET_DEVICE_DIR)/bt_vendor.conf:/vendor/etc/bluetooth/bt_vendor.conf
+endif
 
 # Camera support
 ifeq ($(BOARD_CAMERA_SUPPORT),true)
