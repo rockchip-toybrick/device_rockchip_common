@@ -20,12 +20,18 @@ PRODUCT_COPY_FILES += \
     $(ROCKCHIP_ROOT_DIR_PATH)/init.rockchip.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rockchip.rc \
     $(ROCKCHIP_ROOT_DIR_PATH)/init.mount_all_early.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.mount_all.rc \
     $(ROCKCHIP_ROOT_DIR_PATH)/init.tune_io.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.tune_io.rc \
-    $(ROCKCHIP_ROOT_DIR_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg \
     $(ROCKCHIP_ROOT_DIR_PATH)/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     $(ROCKCHIP_ROOT_DIR_PATH)/init.rk30board.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(TARGET_BOARD_HARDWARE).rc \
     $(ROCKCHIP_ROOT_DIR_PATH)/init.rk30board.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.$(TARGET_BOARD_HARDWARE).usb.rc \
     $(ROCKCHIP_ROOT_DIR_PATH)/init.recovery.rk30board.rc:recovery/root/init.recovery.$(TARGET_BOARD_HARDWARE).rc \
 
+ifneq (,$(filter vehicle car,$(TARGET_BOARD_PLATFORM_PRODUCT)))
+PRODUCT_COPY_FILES += \
+    $(ROCKCHIP_ROOT_DIR_PATH)/init.insmod.vehicle.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg
+else
+PRODUCT_COPY_FILES += \
+    $(ROCKCHIP_ROOT_DIR_PATH)/init.insmod.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/init.insmod.cfg
+endif
 
 ifeq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), car)
 PRODUCT_COPY_FILES += \
