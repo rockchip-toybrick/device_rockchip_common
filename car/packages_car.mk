@@ -28,7 +28,8 @@ PRODUCT_PACKAGES += \
     OneTimeInitializer \
     CarProvision \
     StatementService \
-    SystemUpdater
+    SystemUpdater \
+    Gallery2
 
 
 PRODUCT_PACKAGES += \
