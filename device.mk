@@ -1063,8 +1063,11 @@ ifeq ($(strip $(BOARD_TV_LOW_MEMOPT)), true)
 endif
 
 #bt config for ap bt
-ifeq ($(strip $(PRODUCT_KERNEL_DTS)), rk3588-vehicle-evb-v20)
-    PRODUCT_COPY_FILES += \
+ifeq ($(strip $(PRODUCT_KERNEL_DTS)), rk3588-vehicle-evb-v21)
+PRODUCT_COPY_FILES += \
+	$(TARGET_DEVICE_DIR)/bt_vendor_vehicle_v21.conf:/vendor/etc/bluetooth/bt_vendor.conf
+else ifeq ($(strip $(PRODUCT_KERNEL_DTS)), rk3588-vehicle-evb-v20)
+PRODUCT_COPY_FILES += \
         $(TARGET_DEVICE_DIR)/bt_vendor_vehicle_v20.conf:/vendor/etc/bluetooth/bt_vendor.conf
 else ifeq ($(strip $(PRODUCT_KERNEL_DTS)), rk3588-vehicle-evb-v10)
     PRODUCT_COPY_FILES += \
