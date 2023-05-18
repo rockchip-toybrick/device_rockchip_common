@@ -1101,8 +1101,15 @@ endif
 PRODUCT_PACKAGES += \
 	libbaseparameter
 
+
+USE_PRODUCT_DISPLAY_SETTINGS := $(shell test -f $(TARGET_DEVICE_DIR)/display_settings.xml && echo true)
+ifeq ($(strip $(USE_PRODUCT_DISPLAY_SETTINGS)), true)
+PRODUCT_COPY_FILES += \
+     $(TARGET_DEVICE_DIR)/display_settings.xml:$(TARGET_COPY_OUT_VENDOR)/etc/display_settings.xml
+else
 PRODUCT_COPY_FILES += \
      $(LOCAL_PATH)/display_settings.xml:$(TARGET_COPY_OUT_VENDOR)/etc/display_settings.xml
+endif
 
 # build libmpimmz for rknn
 PRODUCT_PACKAGES += \

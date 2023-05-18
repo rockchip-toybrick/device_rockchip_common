@@ -3,27 +3,7 @@
 <config identifier="0" />
 <display
   name="local:1"
-  shouldShowSystemDecors="true"
+  shouldShowSystemDecors="false"
   shouldShowIme="true"
-  forcedDensity="240"	/> 
-<display
-   name="local:2"
-   shouldShowSystemDecors="true"
-   shouldShowIme="true"
-   forcedDensity="240"   />
-<display
-   name="local:3"
-   shouldShowSystemDecors="true"
-   shouldShowIme="true"
-   forcedDensity="240"   />
-<display
-   name="local:241"
-   shouldShowSystemDecors="true"
-   shouldShowIme="true"
-   forcedDensity="240"   />
-<display
-   name="local:243"
-   shouldShowSystemDecors="true"
-   shouldShowIme="true"
-   forcedDensity="240"   />
+  forcedDensity="240"	/>
 </display-settings>
