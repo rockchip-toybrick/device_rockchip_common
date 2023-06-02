@@ -6,5 +6,5 @@ $(call inherit-product, device/rockchip/common/car/packages_car.mk)
 
 $(call inherit-product, device/rockchip/common/car/post_google_car.mk)
 
-
+$(call inherit-product-if-exists, frameworks/base/data/sounds/AllAudio.mk)
 
