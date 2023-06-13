@@ -34,3 +34,8 @@ ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT),car)
         packages/services/Car/car_product/sepolicy/test \
         packages/services/Car/cpp/watchdog/testclient/sepolicy
 endif
+
+ifeq ($(ENABLE_EVS_SAMPLE), true)
+    BOARD_SEPOLICY_DIRS += \
+        device/rockchip/common/sepolicy/car/evs
+endif
