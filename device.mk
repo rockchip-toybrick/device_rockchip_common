@@ -1162,3 +1162,9 @@ endif
 # neon transform library
 PRODUCT_PACKAGES += \
 	librockchipxxx
+
+ifneq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), box)
+# enable retriever during video playing
+PRODUCT_PROPERTY_OVERRIDES += \
+    rt_retriever_enable=1
+endif
