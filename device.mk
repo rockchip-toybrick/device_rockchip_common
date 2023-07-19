@@ -331,7 +331,7 @@ PRODUCT_PACKAGES += \
     librs_jni \
     libjni_pinyinime
 
-ifeq ($(filter atv box car, $(strip $(TARGET_BOARD_PLATFORM_PRODUCT))), )
+ifeq ($(filter atv box, $(strip $(TARGET_BOARD_PLATFORM_PRODUCT))), )
 # Sensor HAL
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-service \
