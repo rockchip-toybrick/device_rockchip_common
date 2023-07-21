@@ -182,14 +182,26 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio_policy_configuration_multiaudio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
 else
 ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT), car)
-PRODUCT_PACKAGES += \
-    audio.hdmi.$(TARGET_BOARD_HARDWARE) \
-    audio.hdmi_1.$(TARGET_BOARD_HARDWARE)
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/car_audio_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/car_audio_configuration.xml \
-    $(LOCAL_PATH)/car_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    $(LOCAL_PATH)/car_audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
-    $(LOCAL_PATH)/car_default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml
+ifeq ($(wildcard $(TARGET_DEVICE_DIR)/car_audio_configuration.xml),)
+    PRODUCT_COPY_FILES += $(LOCAL_PATH)/car_audio_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/car_audio_configuration.xml
+else
+    PRODUCT_COPY_FILES += $(TARGET_DEVICE_DIR)/car_audio_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/car_audio_configuration.xml
+endif
+ifeq ($(wildcard $(TARGET_DEVICE_DIR)/audio_policy_configuration.xml),)
+    PRODUCT_COPY_FILES += $(LOCAL_PATH)/car_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
+else
+    PRODUCT_COPY_FILES += $(TARGET_DEVICE_DIR)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
+endif
+ifeq ($(wildcard $(TARGET_DEVICE_DIR)/audio_policy_volumes.xml),)
+    PRODUCT_COPY_FILES += $(LOCAL_PATH)/car_audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml
+else
+    PRODUCT_COPY_FILES += $(TARGET_DEVICE_DIR)/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml
+endif
+ifeq ($(wildcard $(TARGET_DEVICE_DIR)/default_volume_tables.xml),)
+    PRODUCT_COPY_FILES += $(LOCAL_PATH)/car_default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml
+else
+    PRODUCT_COPY_FILES += $(TARGET_DEVICE_DIR)/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml
+endif
 else
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
