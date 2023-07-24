@@ -140,6 +140,16 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/rockchip/common/wifi/ssv6xxx/p2p_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_ssv.conf \
 
+#for nforetek nf3205pq
+NFWificonfig :=  $(shell ls vendor/rockchip/common/wifi/nforetek/config)
+PRODUCT_COPY_FILES += \
+	$(foreach file, $(NFWificonfig), vendor/rockchip/common/wifi/nforetek/config/$(file):$(TARGET_COPY_OUT_VENDOR)/etc/wifi/$(file)) \
+	vendor/rockchip/common/wifi/nforetek/qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/firmware/wlan/nf3205pq/qcom_cfg.ini
+
+NFWifiFirmware :=  $(shell ls vendor/rockchip/common/wifi/nforetek/nf3205pq)
+PRODUCT_COPY_FILES += \
+	$(foreach file, $(NFWifiFirmware), vendor/rockchip/common/wifi/nforetek/nf3205pq/$(file):$(TARGET_COPY_OUT_VENDOR)/etc/firmware/nf3205pq/$(file)) \
+
 PRODUCT_PACKAGES += \
     iperf \
     libiconv \
@@ -1086,6 +1096,10 @@ PRODUCT_COPY_FILES += \
 else ifeq ($(strip $(PRODUCT_KERNEL_DTS)), rk3588-vehicle-evb-v10)
     PRODUCT_COPY_FILES += \
         $(TARGET_DEVICE_DIR)/bt_vendor_vehicle_v10.conf:/vendor/etc/bluetooth/bt_vendor.conf
+else ifeq ($(strip $(PRODUCT_KERNEL_DTS)), rk3588-vehicle-s66-v10)
+    PRODUCT_COPY_FILES += \
+	vendor/rockchip/common/bluetooth/nforetek/bt_vendor.conf:/vendor/etc/bluetooth/bt_vendor.conf \
+	vendor/rockchip/common/bluetooth/nforetek/libbt-vendor.so:/vendor/lib64/libbt-vendor-nforetek.so
 else
     PRODUCT_COPY_FILES += \
         $(TARGET_DEVICE_DIR)/bt_vendor.conf:/vendor/etc/bluetooth/bt_vendor.conf

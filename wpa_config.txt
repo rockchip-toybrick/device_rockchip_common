@@ -25,3 +25,9 @@
 -O/data/vendor/wifi/wpa/sockets
 -g@android:wpa_wlan0
 
+[nforetek]
+/vendor/bin/hw/wpa_supplicant
+-ip2p0 -Dnl80211 -c/vendor/etc/wifi/p2p_supplicant_NF.conf -N
+-iwlan0 -Dnl80211 -c/vendor/etc/wifi/wpa_supplicant_NF.conf
+-O/data/vendor/wifi/wpa/sockets
+-g@android:wpa_wlan0
