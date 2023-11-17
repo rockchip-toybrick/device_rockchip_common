@@ -35,6 +35,7 @@ PRODUCT_PACKAGES += \
 
 # Use tv_input.rockchip
 PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.hwc.enable_sideband_stream_2_mode=1 \
     ro.hardware.tv_input=rockchip
 
 # Add manifest
