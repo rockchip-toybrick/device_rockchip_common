@@ -108,7 +108,7 @@ PRODUCT_IS_AUTOMOTIVE := true
 
 PRODUCT_PROPERTY_OVERRIDES := \
     ro.config.ringtone=Girtab.ogg \
-    ro.config.notification_sound=Tethys.ogg \
+    ro.config.notification_sound=Adara.ogg \
     ro.config.alarm_alert=Oxygen.ogg \
     $(PRODUCT_PROPERTY_OVERRIDES) \
 
