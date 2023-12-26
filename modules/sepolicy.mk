@@ -39,3 +39,8 @@ ifeq ($(ENABLE_EVS_SAMPLE), true)
     BOARD_SEPOLICY_DIRS += \
         device/rockchip/common/sepolicy/car/evs
 endif
+
+ifeq ($(BOARD_CAMERA_SUPPORT_AUTOMOTIVE), true)
+    BOARD_SEPOLICY_DIRS += \
+        device/rockchip/common/sepolicy/car/rvcam
+endif
