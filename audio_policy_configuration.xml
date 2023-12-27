@@ -30,6 +30,10 @@
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="44100 48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
+                <mixPort name="mmap_no_irq_out" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT AUDIO_OUTPUT_FLAG_MMAP_NOIRQ">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100 48000" channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
                 <mixPort name="spdif_passthrough" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="32000 44100 48000"
@@ -44,6 +48,11 @@
                              channelMasks="AUDIO_CHANNEL_OUT_STEREO AUDIO_CHANNEL_OUT_QUAD AUDIO_CHANNEL_OUT_5POINT1 AUDIO_CHANNEL_OUT_7POINT1"/>
                 </mixPort>
                 <mixPort name="primary input" role="sink">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000"
+                             channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO"/>
+                </mixPort>
+                <mixPort name="mmap_no_irq_in" role="sink" flags="AUDIO_INPUT_FLAG_MMAP_NOIRQ">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
                              samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000"
                              channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO"/>
@@ -78,11 +87,11 @@
             </devicePorts>
             <routes>
                 <route type="mix" sink="Speaker"
-                       sources="primary output"/>
+                       sources="primary output,mmap_no_irq_out"/>
                 <route type="mix" sink="Wired Headset"
-                       sources="primary output"/>
+                       sources="primary output,mmap_no_irq_out"/>
                 <route type="mix" sink="Wired Headphones"
-                       sources="primary output"/>
+                       sources="primary output,mmap_no_irq_out"/>
                 <route type="mix" sink="BT SCO"
                        sources="primary output"/>
                 <route type="mix" sink="BT SCO Headset"
@@ -93,10 +102,11 @@
                        sources="primary output,hdmi"/>
                 <route type="mix" sink="SPDIF Out"
                        sources="primary output,spdif_passthrough"/>
-
                 <route type="mix" sink="primary input"
                        sources="Built-In Mic,Wired Headset Mic,BT SCO Headset Mic,HDMIIn"/>
-            </routes>
+                <route type="mix" sink="mmap_no_irq_in"
+                       sources="Built-In Mic,Wired Headset Mic,BT SCO Headset Mic,HDMIIn"/>
+			</routes>
         </module>
 
         <!-- A2dp Audio HAL -->

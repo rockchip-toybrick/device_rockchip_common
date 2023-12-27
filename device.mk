@@ -817,6 +817,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.vendor.udisk.visible=true
 endif
 
+PRODUCT_PROPERTY_OVERRIDES += aaudio.mmap_policy=2
+
+PRODUCT_PROPERTY_OVERRIDES += aaudio.mmap_exclusive_policy=2
+
 #if disable safe mode to speed up booting time
 ifeq ($(strip $(BOARD_DISABLE_SAFE_MODE)),true)
 PRODUCT_PROPERTY_OVERRIDES += \
