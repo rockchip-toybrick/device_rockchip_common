@@ -45,8 +45,12 @@ $(call inherit-product, device/rockchip/common/car/packages_generic_system.mk)
 
 # Auto modules
 PRODUCT_PACKAGES += \
-            android.hardware.broadcastradio@2.0-service \
+            android.hardware.broadcastradio@2.0-service
+
+ifneq ($(strip $(SOONG_CONFIG_rvcam_has_vhal)), true)
+PRODUCT_PACKAGES += \
             android.hardware.automotive.vehicle@2.0-service
+endif
 
 # Additional selinux policy
 #BOARD_SEPOLICY_DIRS += device/google_car/common/sepolicy
