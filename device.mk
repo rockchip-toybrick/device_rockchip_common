@@ -1168,3 +1168,12 @@ ifneq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), box)
 PRODUCT_PROPERTY_OVERRIDES += \
     rt_retriever_enable=1
 endif
+
+
+# SVEP
+ifneq (,$(filter true, $(strip $(BOARD_USES_LIBSVEP_SR)) $(strip $(BOARD_USES_LIBSVEP_MEMC)) $(strip $(BOARD_USES_LIBSVEP))))
+    # will disable frame pending by svep running
+    PRODUCT_PROPERTY_OVERRIDES += \
+        debug.sf.disable_frame_pending_by_svep_running=1
+
+endif

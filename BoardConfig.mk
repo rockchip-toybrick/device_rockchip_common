@@ -449,3 +449,9 @@ ifeq ($(strip $(BOARD_BASEPARAMETER_SUPPORT)), true)
     endif
         BOARD_WITH_SPECIAL_PARTITIONS := baseparameter:1M
 endif
+
+# SVEP for Android.mk
+# SR enable macro
+BOARD_USES_LIBSVEP_SR ?= false
+# MEMC enable macro
+BOARD_USES_LIBSVEP_MEMC ?= false
