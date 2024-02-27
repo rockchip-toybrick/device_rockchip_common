@@ -491,6 +491,12 @@ PRODUCT_PACKAGES += \
     audio.usb.default\
     libanr
 
+# audio effect
+ifeq ($(strip $(BOARD_USE_AUDIO_EQDRC)), true)
+PRODUCT_PACKAGES += \
+    librkeqdrc
+endif
+
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
     android.hardware.audio@7.0-impl \
