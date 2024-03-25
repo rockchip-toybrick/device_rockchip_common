@@ -231,7 +231,8 @@
 #camera360
 /system/bin/camera360.sh     u:object_r:vold_exec:s0
 
-#rockchip audiosetting
+#audio
+/data/vendor/audio(/.*)?                u:object_r:vendor_audio_data_file:s0
 
 /(odm|vendor/odm)/bundled_(.*)(/.*)?    u:object_r:vendor_app_file:s0
 
