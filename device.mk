@@ -496,6 +496,10 @@ ifeq ($(strip $(BOARD_USE_AUDIO_EQDRC)), true)
 PRODUCT_PACKAGES += \
     librkeqdrc
 endif
+ifeq ($(strip $(BOARD_USE_AUDIO_PREPROCESS)), true)
+PRODUCT_PACKAGES += \
+    librkpreprocess
+endif
 
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
