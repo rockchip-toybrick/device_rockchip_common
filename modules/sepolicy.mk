@@ -30,6 +30,7 @@ endif
 
 ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT),car)
     BOARD_SEPOLICY_DIRS += \
+        device/rockchip/common/sepolicy/car/vendor \
         device/google_car/common/sepolicy \
         packages/services/Car/car_product/sepolicy/test \
         packages/services/Car/cpp/watchdog/testclient/sepolicy
