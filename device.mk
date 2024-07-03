@@ -45,6 +45,9 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rksdk.version=ANDROID$(PLATFORM_VERSION)_RKR14
 
+# CPU Name
+PRODUCT_VENDOR_PROPERTIES += ro.soc.model=$(TARGET_BOARD_CPU)
+
 TARGET_SYSTEM_PROP += device/rockchip/common/build/rockchip/rksdk.prop
 
 # Set system properties identifying the chipset
