@@ -51,3 +51,6 @@ persist.vendor.rk_vulkan                u:object_r:debug_prop:s0
 tvinput.hdmiin.type         u:object_r:debug_prop:s0
 tvinput.hdmiin.buff_type    u:object_r:debug_prop:s0
 tvinput.hdmiin.pcie_mode    u:object_r:debug_prop:s0
+
+# for HWC
+sys.hwc.                                 u:object_r:debug_prop:s0
