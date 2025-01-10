@@ -1117,6 +1117,9 @@ else ifeq ($(strip $(PRODUCT_KERNEL_DTS)), rk3588-vehicle-s66-v10)
     PRODUCT_COPY_FILES += \
 	vendor/rockchip/common/bluetooth/nforetek/bt_vendor.conf:/vendor/etc/bluetooth/bt_vendor.conf \
 	vendor/rockchip/common/bluetooth/nforetek/libbt-vendor.so:/vendor/lib64/libbt-vendor-nforetek.so
+else ifeq ($(strip $(PRODUCT_KERNEL_DTS)), rk3588-vehicle-evb-v23)
+    PRODUCT_COPY_FILES += \
+        $(TARGET_DEVICE_DIR)/bt_vendor_vehicle_v23.conf:/vendor/etc/bluetooth/bt_vendor.conf
 else
     PRODUCT_COPY_FILES += \
         $(TARGET_DEVICE_DIR)/bt_vendor.conf:/vendor/etc/bluetooth/bt_vendor.conf
