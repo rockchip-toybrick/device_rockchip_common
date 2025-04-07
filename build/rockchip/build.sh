@@ -14,6 +14,7 @@ usage()
     echo "       -d = huild kernel dts name    "
     echo "       -V = build version    "
     echo "       -J = build jobs    "
+    echo "       -m = build multi dtb    "
     exit 1
 }
 
@@ -30,9 +31,18 @@ BUILD_VARIANT=`get_build_var TARGET_BUILD_VARIANT`
 KERNEL_DTS=""
 BUILD_VERSION=""
 BUILD_JOBS=16
+BUILD_MULTIDTB=false
+
+RK3588_YW_DTS=(
+"rk3588-yw-fastboard-soca-v10"
+"rk3588-yw-fastboard-socb-v10"
+"rk3588-evb1-lp4-v10"
+"rk3588-evb7-v11"
+)
+dts_name=RK3588_YW_DTS
 
 # check pass argument
-while getopts "UCKABpouv:d:V:J:" arg
+while getopts "UCKABpoumv:d:V:J:" arg
 do
     case $arg in
         U)
@@ -80,6 +90,10 @@ do
         J)
             BUILD_JOBS=$OPTARG
             ;;
+        m)
+            echo "will build multi dtb"
+            BUILD_MULTIDTB=true
+            ;;
         ?)
             usage ;;
     esac
@@ -104,7 +118,11 @@ KERNEL_VERSION=`get_build_var PRODUCT_KERNEL_VERSION`
 KERNEL_ARCH=`get_build_var PRODUCT_KERNEL_ARCH`
 KERNEL_DEFCONFIG=`get_build_var PRODUCT_KERNEL_CONFIG`
 if [ "$KERNEL_DTS" = "" ] ; then
+if [ "$BUILD_MULTIDTB" = false ] ; then
 KERNEL_DTS=`get_build_var PRODUCT_KERNEL_DTS`
+else
+KERNEL_DTS=$dts_name-multidtb
+fi
 fi
 LOCAL_KERNEL_PATH=kernel-$KERNEL_VERSION
 echo "-------------------KERNEL_VERSION:$KERNEL_VERSION"
@@ -126,6 +144,20 @@ STUB_PATH=Image/"$TARGET_PRODUCT"_"$BUILD_VARIANT"_"$KERNEL_DTS"_"$BUILD_VERSION
 STUB_PATH="$(echo $STUB_PATH | tr '[:lower:]' '[:upper:]')"
 export STUB_PATH=$PROJECT_TOP/$STUB_PATH
 export STUB_PATCH_PATH=$STUB_PATH/PATCHES
+
+function build_multidtb()
+{
+       if [ "$TARGET_PRODUCT" = "rk3588_s" ] || [ "$TARGET_PRODUCT" = "rk3588m_car" ];then
+               for (( i = 0 ; i < ${#RK3588_YW_DTS[@]} ; i++ ))
+               do
+                       echo "make ${RK3588_YW_DTS[$i]} ....."
+                       make $ADDON_ARGS ARCH=$KERNEL_ARCH ${RK3588_YW_DTS[$i]}.img -j$BUILD_JOBS
+               done
+               ./scripts/mkmultidtb.py RK3588-YW
+       fi
+
+       echo "build dtb succesfully................."
+}
 
 # build uboot
 if [ "$BUILD_UBOOT" = true ] ; then
@@ -149,7 +181,11 @@ fi
 # build kernel
 if [ "$BUILD_KERNEL" = true ] ; then
 echo "Start build kernel"
-cd $LOCAL_KERNEL_PATH && make clean && make $ADDON_ARGS ARCH=$KERNEL_ARCH $KERNEL_DEFCONFIG && make $ADDON_ARGS ARCH=$KERNEL_ARCH $KERNEL_DTS.img -j$BUILD_JOBS && cd -
+if [ "$BUILD_MULTIDTB" = true ] ; then
+       cd $LOCAL_KERNEL_PATH && make clean && make $ADDON_ARGS ARCH=$KERNEL_ARCH $KERNEL_DEFCONFIG && build_multidtb && cd -
+else
+       cd $LOCAL_KERNEL_PATH && make clean && make $ADDON_ARGS ARCH=$KERNEL_ARCH $KERNEL_DEFCONFIG && make $ADDON_ARGS ARCH=$KERNEL_ARCH $KERNEL_DTS.img -j$BUILD_JOBS && cd -
+fi
 if [ $? -eq 0 ]; then
     echo "Build kernel ok!"
 else
@@ -195,6 +231,8 @@ fi
 cp -rf $KERNEL_DEBUG $OUT/kernel
 fi
 
+# TODO: repack resource.img has bug in multi dtb, just walkaround
+if [ "$BUILD_MULTIDTB" = false ] ; then
 echo "package resoure.img with charger images"
 cd u-boot && ./scripts/pack_resource.sh ../$LOCAL_KERNEL_PATH/resource.img && cp resource.img ../$LOCAL_KERNEL_PATH/resource.img && cd -
 
@@ -202,6 +240,7 @@ IS_VEHICLE=`get_build_var BOARD_ROCKCHIP_VEHICLE`
 LOGO_VEHICLE_PATH=`get_build_var TARGET_DEVICE_DIR`
 if [ "$IS_VEHICLE" = true ]; then
 ./$LOGO_VEHICLE_PATH/pack_resource.sh ./$LOCAL_KERNEL_PATH/resource.img && cp resource.img ./$LOCAL_KERNEL_PATH/resource.img
+fi
 fi
 
 # build android
