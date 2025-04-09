@@ -152,11 +152,19 @@ function build_multidtb()
                do
                        echo "make ${RK3588_YW_DTS[$i]} ....."
                        make $ADDON_ARGS ARCH=$KERNEL_ARCH ${RK3588_YW_DTS[$i]}.img -j$BUILD_JOBS
+                       if [ $? -ne 0 ]; then
+                               echo "make ${RK3588_YW_DTS[$i]} failed!"
+                               return -1
+                       fi
                done
                ./scripts/mkmultidtb.py RK3588-YW
+
+               echo "Build multi dtb succesfully."
+       else
+               echo "$TARGET_PRODUCT do NOT support multi dtb!"
+               return -1
        fi
 
-       echo "build dtb succesfully................."
 }
 
 # build uboot
