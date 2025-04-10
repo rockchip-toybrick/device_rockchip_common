@@ -38,6 +38,7 @@ RK3588_YW_DTS=(
 "rk3588-yw-fastboard-socb-v10"
 "rk3588-evb1-lp4-v10"
 "rk3588-evb7-v11"
+"rk3588-vehicle-evb-v23"
 )
 dts_name=RK3588_YW_DTS
 
