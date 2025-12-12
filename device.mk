@@ -941,9 +941,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.logd.kernel=1
-PRODUCT_COPY_FILES += \
-    device/rockchip/common/zmodem/rz:$(TARGET_COPY_OUT_VENDOR)/bin/rz \
-    device/rockchip/common/zmodem/sz:$(TARGET_COPY_OUT_VENDOR)/bin/sz
 PRODUCT_PACKAGES += io
 endif
 
@@ -1093,10 +1090,6 @@ else
 endif
 PRODUCT_COPY_FILES += \
     device/rockchip/common/flash_img/flash_img.sh:vendor/bin/flash_img.sh
-
-#read pcie info for Devicetest APK
-PRODUCT_COPY_FILES += \
-    device/rockchip/common/pcie/read_pcie_info.sh:vendor/bin/read_pcie_info.sh
 
 BOARD_TV_LOW_MEMOPT ?= false
 ifeq ($(strip $(BOARD_TV_LOW_MEMOPT)), true)
